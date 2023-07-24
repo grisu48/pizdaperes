@@ -1,0 +1,9 @@
+#!/usr/bin/env -S ansible-playbook -i inventory
+---
+
+- name: Climbing up a mountain
+  hosts: all
+  user: root
+  
+  roles:
+    - role: piz-podman

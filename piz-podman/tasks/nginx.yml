@@ -1,0 +1,31 @@
+---
+# tasks file for piz-podman
+
+- name: Pull nginx container
+  containers.podman.podman_image:
+    name: docker.io/nginx
+  tags: ['nginx']
+
+- name: Ensure www data is present
+  copy:
+    src: www/
+    dest: /srv/www/
+    owner: root
+    group: root
+    mode: 0644
+    directory_mode: 0755
+  tags: ['nginx']
+
+- name: Create nginx container
+  containers.podman.podman_container:
+    name: nginx
+    image: docker.io/nginx
+    state: started
+    volume:
+      - '/srv/www:/usr/share/nginx/html:ro'
+    ports:
+      - '80:80'
+  tags: ['nginx']
+
+- name: Check if nginx container is working
+  shell: 'curl --fail "http://localhost" | grep -i "piz da peres"'

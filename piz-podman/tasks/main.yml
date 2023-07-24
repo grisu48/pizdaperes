@@ -1,0 +1,6 @@
+---
+# tasks file for piz-podman
+
+- include_tasks: leap.yml
+- include_tasks: nginx.yml
+- include_tasks: network.yml

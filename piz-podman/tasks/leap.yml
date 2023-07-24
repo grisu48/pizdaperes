@@ -1,0 +1,12 @@
+---
+# tasks file for piz-podman
+
+- name: Pull Leap container
+  containers.podman.podman_image:
+    name: registry.opensuse.org/opensuse/leap
+
+- name: Run container
+  containers.podman.podman_container:
+    name: leap
+    image: registry.opensuse.org/opensuse/leap
+    state: present

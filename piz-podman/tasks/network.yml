@@ -1,0 +1,28 @@
+---
+# tasks file for piz-podman
+
+- name: Remove secondary podman network
+  containers.podman.podman_network:
+    name: furkel
+    state: absent
+
+- name: Create secondary podman network
+  containers.podman.podman_network:
+    name: furkel
+    state: present
+    internal: false
+    ip_range: 192.168.22.0/24
+    subnet: 192.168.22.0/24
+    gateway: 192.168.22.1
+
+- name: Prepare network container
+  containers.podman.podman_container:
+    name: furkel
+    image: registry.opensuse.org/opensuse/leap
+    network: 'furkel'
+    ip: '192.168.22.2'
+    command: 'sleep infinity'
+    state: started
+
+- name: Ping new container
+  shell: 'ping -c 2 192.168.22.2'
