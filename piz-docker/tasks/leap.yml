@@ -1,0 +1,13 @@
+---
+# tasks file for piz-docker
+
+- name: Pull Leap container
+  community.docker.docker_image:
+    name: registry.opensuse.org/opensuse/leap
+    source: pull
+
+- name: Create container
+  community.docker.docker_container:
+    name: leap
+    image: registry.opensuse.org/opensuse/leap
+    state: present

@@ -1,0 +1,10 @@
+---
+# tasks file for piz-docker
+
+- name: Ensure docker is started
+  systemd:
+    name: docker
+    state: started
+
+- include_tasks: leap.yml
+- include_tasks: nginx.yml
